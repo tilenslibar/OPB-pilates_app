@@ -2,3 +2,5 @@ Spletna aplikacija, namenjena vsem, ki želijo izboljšati svoje telesno počutj
 Vsako vadbo si je mogoče personalizirati z dodajanjem lastnih vaj.
 
 Poleg vadbe aplikacija vključuje tudi blog, kjer uporabniki najdejo koristne članke o pilatesu, zdravem življenjskem slogu, prehrani in motivaciji za gibanje.
+
+![image](https://github.com/user-attachments/assets/abfa3240-c1a9-4fdb-b490-927e7dc66e41)
