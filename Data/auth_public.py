@@ -1,4 +1,4 @@
-db = 'opb2025_slibati'
+db = 'sem2025_dostaal'
 host = 'baza.fmf.uni-lj.si'
-user = 'javnost'
-password = 'javnogeslo'
+user = 'dostaal'
+password = 'rfljj5ym'

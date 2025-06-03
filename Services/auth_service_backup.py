@@ -10,7 +10,7 @@ class AuthService:
     def __init__(self):
          self.repo = Repo()
 
-    def dodaj_uporabnika(self, uporabnik: str, rola: str, geslo: str) -> UporabnikDto:
+    def dodaj_uporabnika(self, uporabnisko_ime: str, email: str, geslo: str) -> uporabnik:
 
         # zgradimo hash za geslo od uporabnika
 
@@ -25,17 +25,22 @@ class AuthService:
 
         # Sedaj ustvarimo objekt Uporabnik in ga zapišemo bazo
 
-        u = Uporabnik(
-            username=uporabnik,
-            role=rola,
-            password_hash=password_hash.decode(),
-            last_login= date.today().isoformat()
+        u = uporabnik(
+            uporabnisko_ime=uporabnisko_ime,
+            email=email,
+            zadnja_prijava=date.today().isoformat(),
+            password_hash=password_hash.decode()
         )
+        #     username=uporabnik,
+        #     role=rola,
+        #     password_hash=password_hash.decode(),
+        #     last_login= date.today().isoformat()
+        # )
 
-        print("dodajam uporabnika")
+        print("Dodajam uporabnika", u)
         self.repo.dodaj_uporabnika(u)
 
-        return UporabnikDto(username=uporabnik, role=rola)
+        return u
 
     def obstaja_uporabnik(self, uporabnik: str) -> bool:
         try:
@@ -52,7 +57,6 @@ class AuthService:
         geslo_bytes = geslo.encode('utf-8')
         # Ustvarimo hash iz gesla, ki ga je vnesel uporabnik
         succ = bcrypt.checkpw(geslo_bytes, user.password_hash.encode('utf-8'))
-        print("Geslo uspešno preverjeno:", succ)
 
         if succ:
             # popravimo last login time
@@ -62,5 +66,5 @@ class AuthService:
         
         return False
 
-    def dobi_uporabnike(self):
-        return self.repo.dobi_uporabnike()
+    
+

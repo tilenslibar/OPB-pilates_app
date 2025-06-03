@@ -1,1 +1,4 @@
-bottle==0.13.3
+psycopg2-binary
+dataclasses_json
+bottle
+bcrypt
