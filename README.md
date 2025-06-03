@@ -3,4 +3,23 @@ Vsako vadbo si je mogoče personalizirati z dodajanjem lastnih vaj.
 
 Poleg vadbe aplikacija vključuje tudi blog, kjer uporabniki najdejo koristne članke o pilatesu, zdravem življenjskem slogu, prehrani in motivaciji za gibanje.
 
+## Zagon
+
+Najprej pozenemo
+```
+python3 -m venv venv
+```
+potem - mora se pojaviti (venv) na levi strani
+```
+source venv/bin/activate
+```
+potem
+```
+pip install -r requirements.txt
+```
+potem
+```
+python app.py
+```
+
 ![er](https://github.com/user-attachments/assets/081a85d3-5db0-44bd-8ec7-db5ef13ca6ef)

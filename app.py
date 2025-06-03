@@ -15,7 +15,6 @@ def cookie_required(f):
     @wraps(f)
     def decorated( *args, **kwargs):
         cookie = request.get_cookie("uporabnik")
-        print("Cookie:", cookie)
         if cookie:
             return f(*args, **kwargs)
         return template('prijava', naslov="Prijava", sporocilo="Za dostop do strani se morate prijaviti.")
