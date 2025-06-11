@@ -24,12 +24,16 @@
             <th>Ime</th>
             <th>Opis</th>
             <th>Tip</th>
+            <th>Link</th>
+            <th>Dodal</th>
         </tr>
         % for vaja in vaje:
             <tr>
                 <td>{{vaja.ime}}</td>
                 <td>{{vaja.opis}}</td>
                 <td>{{vaja.tip}}</td>
+                <td>{{vaja.link}}</td>
+                <td>{{vaja.username}}</td>
             </tr>
         % end
     </table>
@@ -45,6 +49,7 @@
                 <option>raztezna</option>
             </select>
         </label><br>
+        <label>Link: <input type="text" name="link" required</label><br>
         <input type="submit" value="Dodaj vajo">
     </form>
 

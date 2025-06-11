@@ -33,7 +33,16 @@ class VajeService:
         return self.repo.dobi_vaje()
     
     
-    def dodaj_vajo(self, ime: str, opis: str, tip: str):
-        v = vaja(ime=ime, opis=opis, tip=tip)
+    def dodaj_vajo(self, ime: str, opis: str, tip: str, link: str, user_id: int):
+        v = vaja(ime=ime, opis=opis, tip=tip, link=link, user_id=user_id)
         
         return self.repo.dodaj_vajo(v)
+    
+    def dobi_treninge(self):
+        return self.repo.dobi_treninge()
+    
+    def dodaj_vajo_treningu(self, trening_id: int, vaja_ime: str):
+        return self.repo.dodaj_vajo_treningu(trening_id, vaja_ime)
+    
+    def dodaj_trening(self, ime: str):
+        return self.repo.dodaj_trening(ime)

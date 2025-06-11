@@ -14,6 +14,30 @@ class vaja:
     ime: str = field(default="")
     opis: str = field(default="")
     tip: str = field(default="")
+    link: str = field(default="")  # Dodatno si shranimo še link do repozitorija z vajo
+    user_id: int = field(default=0)
+
+@dataclass_json
+@dataclass
+class vajaDto:
+    ime: str = field(default="")
+    opis: str = field(default="")
+    tip: str = field(default="")
+    link: str = field(default="")
+    username: str = field(default="")
+
+@dataclass_json
+@dataclass
+class trening:
+    id: int = field(default=0)
+    ime: str = field(default="")
+
+@dataclass_json
+@dataclass
+class treningDto:
+    id: int = field(default=0)
+    ime: str = field(default="")
+    vaje: list = field(default_factory=list)  # Seznam vaj, ki so del treninga
 
 
 # OD TU NAPREJ JE SKOPIRANO IZ GITHUB REPOZITORIJA OPB_STRUKTURA_PROJEKTA
@@ -79,6 +103,7 @@ class osebaDto:
 @dataclass_json
 @dataclass
 class Uporabnik:
+    id: int = field(default=0)
     username: str = field(default="")
     role: str = field(default="")
     password_hash: str = field(default="")

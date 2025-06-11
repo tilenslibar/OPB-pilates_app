@@ -64,3 +64,7 @@ class AuthService:
 
     def dobi_uporabnike(self):
         return self.repo.dobi_uporabnike()
+    
+    def dobi_uporabnika(self, uporabnik: str) -> UporabnikDto:
+        user = self.repo.dobi_uporabnika(uporabnik)
+        return UporabnikDto(username=user.username, role=user.role)

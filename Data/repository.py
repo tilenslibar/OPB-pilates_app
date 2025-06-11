@@ -4,7 +4,7 @@ import Data.auth_public as auth
 import datetime
 import os
 
-from Data.models import transakcija, oseba, osebaDto, racun, transakcijaDto, Uporabnik, vaja
+from Data.models import transakcija, oseba, osebaDto, racun, transakcijaDto, Uporabnik, vaja, vajaDto, treningDto
 from typing import List
 
 # Preberemo port za bazo iz okoljskih spremenljivk
@@ -21,31 +21,77 @@ class Repo:
 
     def dobi_vaje(self):
         self.cur.execute("""
-            SELECT id, ime, opis, tip
-            FROM vaje
+            SELECT v.ime, v.opis, v.tip, v.link, u.username
+            FROM vaje v
+            LEFT JOIN uporabniki u
+            ON v.user_id = u.id
         """)
 
-        # print("vaje", self.cur.fetchall())
-        vaje = [vaja.from_dict(v) for v in self.cur.fetchall()]
+        vaje = [vajaDto.from_dict(v) for v in self.cur.fetchall()]
         return vaje
 
     def dodaj_vajo(self, v: vaja):
         print("Dodajam vajo:", v.ime)
         
         self.cur.execute("""
-            INSERT INTO vaje(ime, opis, tip)
-            VALUES (%s, %s, %s)
-        """, (v.ime, v.opis, v.tip))
+            INSERT INTO vaje(ime, opis, tip, link, user_id)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (v.ime, v.opis, v.tip, v.link, v.user_id))
         self.conn.commit()
 
-    # def dodaj_uporabnika(self, uporabnik: uporabnik):
-    #     print("Dodajam uporabnika", uporabnik.uporabnisko_ime)
+    def dobi_treninge(self):
+        self.cur.execute("""
+            SELECT t.id AS trening_id, t.ime AS trening_ime, v.ime AS ime, v.opis AS opis, v.tip AS tip, v.link AS link
+            FROM treningi t
+            LEFT JOIN trening_vaja tv ON t.id = tv.trening_id
+            LEFT JOIN vaje v ON tv.vaja_id = v.id
+            ORDER BY t.id;
+        """)
+
+        treningi = self.cur.fetchall()
+
+        print("TRENINGI", treningi)
+        print("TRENINGI END")
+
+        treningi_dto = {}
+        for row in treningi:
+            id = row['trening_id']
+            if id not in treningi_dto:
+                if row['ime'] is not None:
+                    treningi_dto[id] = treningDto(id=row['trening_id'], ime=row['trening_ime'], vaje=[vaja.from_dict(row)])
+                else:
+                    treningi_dto[id] = treningDto(id=row['trening_id'], ime=row['trening_ime'], vaje=[])
+            else:
+                treningi_dto[id].vaje.append(vaja.from_dict(row))
+
+        return treningi_dto.values()
+
+    def dodaj_vajo_treningu(self, trening_id: int, vaja_ime: str):
+        # Najprej pridobimo ID vaje po imenu
+        self.cur.execute("""
+            SELECT id FROM vaje WHERE ime = %s
+        """, (vaja_ime,))
         
-    #     self.cur.execute("""
-    #         INSERT into uporabniki(uporabnisko_ime, email, zadnja_prijava, password_hash)
-    #         VALUES (%s, %s, %s, %s)
-    #         """, (uporabnik.uporabnisko_ime, uporabnik.email, uporabnik.zadnja_prijava, uporabnik.password_hash))
-    #     self.conn.commit()
+        vaja_id = self.cur.fetchone()[0]
+
+        # Sedaj dodamo povezavo med treningom in vajo
+        self.cur.execute("""
+            INSERT INTO trening_vaja(trening_id, vaja_id)
+            VALUES (%s, %s)
+        """, (trening_id, vaja_id))
+        
+        self.conn.commit()
+
+    def dodaj_trening(self, ime: str):
+        print("Dodajam trening:", ime)
+        
+        self.cur.execute("""
+            INSERT INTO treningi(ime)
+            VALUES (%s)
+        """, (ime,))
+        self.conn.commit()
+
+    # OD TUKAJ NAPREJ JE SKOPIRANO IZ GITHUB REPOZITORIJA OPB_STRUKTURA_PROJEKTA
     
     def dobi_transakcije(self) -> List[transakcija]:
         self.cur.execute("""
@@ -162,7 +208,7 @@ class Repo:
 
     def dobi_uporabnika(self, username:str) -> Uporabnik:
         self.cur.execute("""
-            SELECT username, role, password_hash, last_login
+            SELECT id, username, role, password_hash, last_login
             FROM uporabniki
             WHERE username = %s
         """, (username,))

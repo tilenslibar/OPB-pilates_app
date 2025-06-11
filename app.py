@@ -35,12 +35,18 @@ def stran_vaje():
     return template('vaje', naslov="Baza vaj", vaje=vaje)
 
 @post('/dodaj')
+@cookie_required
 def dodaj_vajo():
     ime = request.forms.get('ime')
     opis = request.forms.get('opis')
     tip = request.forms.get('tip')
-    
-    service.dodaj_vajo(ime, opis, tip)
+    link = request.forms.get('link')
+    username = request.get_cookie("uporabnik")
+
+    user = auth.repo.dobi_uporabnika(username)
+    # print("Uporabnik:", user)
+
+    service.dodaj_vajo(ime, opis, tip, link, user.id)
     redirect('/vaje')
 
 @post('/prijava')
@@ -51,9 +57,6 @@ def prijava():
     """
     username = request.forms.get('username')
     password = request.forms.get('password')
-
-    print("Username:", username)
-    print("Password:", password)
 
     if not auth.obstaja_uporabnik(username):
         return template("prijava", naslov="Prijava", sporocilo="Uporabnik s tem imenom ne obstaja")
@@ -101,6 +104,34 @@ def uporabniki():
     uporabniki = auth.repo.dobi_uporabnike()
     print("Uporabniki:", uporabniki)
     return template('uporabniki', naslov="Uporabniki", uporabniki=uporabniki)
+
+
+@get('/treningi')
+@cookie_required
+def treningi():
+    treningi_dto = service.dobi_treninge()
+    print("Treningi:", treningi_dto)
+    vaje = service.dobi_vaje()
+
+    return template('treningi', naslov="Treningi", treningi=treningi_dto, vse_vaje=vaje)
+
+@post('/dodaj_vajo_treningu/<trening_id:int>')
+@cookie_required
+def dodaj_vajo_treningu(trening_id):
+    vaja_ime = request.forms.get('vaja_ime')
+    print("Dodajam vajo treningu", trening_id, vaja_ime)
+
+    service.dodaj_vajo_treningu(trening_id, vaja_ime)
+    redirect('/treningi')
+
+@post('/dodaj_trening')
+@cookie_required
+def dodaj_trening():
+    ime = request.forms.get('ime')
+    print("Dodajam trening:", ime)
+
+    service.repo.dodaj_trening(ime)
+    redirect('/treningi')
 
 
 if __name__ == '__main__':
