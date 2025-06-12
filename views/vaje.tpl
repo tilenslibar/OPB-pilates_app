@@ -57,7 +57,9 @@
                 <td class="vaja-ime" style="border: 1.5px solid #e8b6d1;">{{vaja.ime}}</td>
                 <td class="meta-label" style="border: 1.5px solid #e8b6d1;">{{vaja.opis}}</td>
                 <td class="meta-label" style="border: 1.5px solid #e8b6d1;">{{vaja.tip}}</td>
-                <td class="meta-label" style="border: 1.5px solid #e8b6d1;">{{vaja.link}}</td>
+                <td class="meta-label" style="border: 1.5px solid #e8b6d1;">
+                    <iframe width="300" height="200" src="{{vaja.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </td>
                 <td style="border: 1.5px solid #e8b6d1;">
                     <form action="/izbrisi_vajo" method="post" style="display:inline;">
                         <input type="hidden" name="ime" value="{{vaja.ime}}">

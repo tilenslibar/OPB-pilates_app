@@ -2,6 +2,7 @@ from functools import wraps
 from bottle import run, template, request, redirect, response, get, post, static_file
 from Services.vaje_service import VajeService
 from Services.auth_service import AuthService
+import urllib.parse
 
 
 service = VajeService()
@@ -37,10 +38,15 @@ def stran_vaje():
 @post('/dodaj')
 @cookie_required
 def dodaj_vajo():
-    ime = request.forms.get('ime')
-    opis = request.forms.get('opis')
-    tip = request.forms.get('tip')
-    link = request.forms.get('link')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.body.read().decode("utf-8")
+    data = urllib.parse.parse_qs(raw)
+    
+    ime = data["ime"][0]
+    opis = data["opis"][0]
+    tip = data["tip"][0]
+    link = data["link"][0]
+
     username = request.get_cookie("uporabnik")
 
     user = auth.repo.dobi_uporabnika(username)
@@ -118,7 +124,11 @@ def treningi():
 @post('/dodaj_vajo_treningu/<trening_id:int>')
 @cookie_required
 def dodaj_vajo_treningu(trening_id):
-    vaja_ime = request.forms.get('vaja_ime')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.body.read().decode("utf-8")
+    data = urllib.parse.parse_qs(raw)
+
+    vaja_ime = data['vaja_ime'][0]
     print("Dodajam vajo treningu", trening_id, vaja_ime)
 
     service.dodaj_vajo_treningu(trening_id, vaja_ime)
@@ -127,7 +137,11 @@ def dodaj_vajo_treningu(trening_id):
 @post('/dodaj_trening')
 @cookie_required
 def dodaj_trening():
-    ime = request.forms.get('ime')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.body.read().decode("utf-8")
+    data = urllib.parse.parse_qs(raw)
+
+    ime = data['ime'][0]
     print("Dodajam trening:", ime)
 
     service.repo.dodaj_trening(ime)
@@ -136,32 +150,48 @@ def dodaj_trening():
 @post('/izbrisi_vajo')
 @cookie_required
 def izbrisi_vajo():
-    ime = request.forms.get('ime')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.body.read().decode("utf-8")
+    data = urllib.parse.parse_qs(raw)
+
+    ime = data['ime'][0]
     service.izbrisi_vajo(ime)
     redirect('/vaje')
 
 @get('/uredi_vajo')
 @cookie_required
 def uredi_vajo_get():
-    ime = request.query.get('ime')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.query_string
+    data = urllib.parse.parse_qs(raw)
+
+    ime = data['ime'][0]
     vaja = service.dobi_vajo(ime)
     return template('uredi_vajo', vaja=vaja)
 
 @post('/uredi_vajo')
 @cookie_required
 def uredi_vajo_post():
-    staro_ime = request.forms.get('staro_ime')
-    novo_ime = request.forms.get('ime')
-    opis = request.forms.get('opis')
-    tip = request.forms.get('tip')
-    link = request.forms.get('link')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.body.read().decode("utf-8")
+    data = urllib.parse.parse_qs(raw)
+
+    staro_ime = data['staro_ime'][0]
+    novo_ime = data['ime'][0]
+    opis = data['opis'][0]
+    tip = data['tip'][0]
+    link = data['link'][0]
     service.posodobi_vajo(staro_ime, novo_ime, opis, tip, link)
     redirect('/vaje')
 
 @post('/izbrisi_trening')
 @cookie_required
 def izbrisi_trening():
-    trening_id = request.forms.get('trening_id')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.body.read().decode("utf-8")
+    data = urllib.parse.parse_qs(raw)
+
+    trening_id = data['trening_id'][0]
     service.izbrisi_trening(int(trening_id))
     redirect('/treningi')
 
@@ -175,16 +205,24 @@ def uredi_trening_get():
 @post('/uredi_trening')
 @cookie_required
 def uredi_trening_post():
-    trening_id = request.forms.get('trening_id')
-    novo_ime = request.forms.get('ime')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.body.read().decode("utf-8")
+    data = urllib.parse.parse_qs(raw)
+
+    trening_id = data['trening_id'][0]
+    novo_ime = data['ime'][0]
     service.posodobi_trening(int(trening_id), novo_ime)
     redirect('/treningi')
 
 @post('/izbrisi_vajo_iz_treninga')
 @cookie_required
 def izbrisi_vajo_iz_treninga():
-    trening_id = request.forms.get('trening_id')
-    vaja_ime = request.forms.get('vaja_ime')
+    # https://stackoverflow.com/questions/25475530/bottle-convert-post-request-to-unicode
+    raw = request.body.read().decode("utf-8")
+    data = urllib.parse.parse_qs(raw)
+
+    trening_id = data['trening_id'][0]
+    vaja_ime = data['vaja_ime'][0]
     service.izbrisi_vajo_iz_treninga(int(trening_id), vaja_ime)
     redirect('/treningi')
 

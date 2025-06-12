@@ -40,7 +40,10 @@
                             <br>
                             <strong class="meta-label">opis:</strong> <span class="meta-label">{{vaja.opis}}</span><br>
                             <strong class="meta-label">tip:</strong> <span class="meta-label">{{vaja.tip}}</span><br>
-                            <strong class="meta-label">link:</strong> <span class="meta-label"><a href="{{vaja.link}}" target="_blank" style="color: #bfae9e; font-style: italic; text-decoration: underline;">{{vaja.link}}</a></span>
+                            <!--
+                                <strong class="meta-label">link:</strong> <span class="meta-label"><a href="{{vaja.link}}" target="_blank" style="color: #bfae9e; font-style: italic; text-decoration: underline;">{{vaja.link}}</a></span>
+                            -->
+                            <iframe width="300" height="200" src="{{vaja.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                     </div>
                 </li>
