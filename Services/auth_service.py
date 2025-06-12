@@ -1,4 +1,3 @@
-
 from Data.repository import Repo
 from Data.models import *
 import bcrypt
@@ -63,7 +62,9 @@ class AuthService:
         return False
 
     def dobi_uporabnike(self):
-        return self.repo.dobi_uporabnike()
+        uporabniki = self.repo.dobi_uporabnike()
+        # Pretvori v UporabnikDto z last_login
+        return [UporabnikDto(username=u.username, role=u.role, last_login=u.last_login) for u in uporabniki]
     
     def dobi_uporabnika(self, uporabnik: str) -> UporabnikDto:
         user = self.repo.dobi_uporabnika(uporabnik)

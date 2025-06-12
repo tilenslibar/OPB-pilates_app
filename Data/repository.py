@@ -4,7 +4,7 @@ import Data.auth_public as auth
 import datetime
 import os
 
-from Data.models import transakcija, oseba, osebaDto, racun, transakcijaDto, Uporabnik, vaja, vajaDto, treningDto
+from Data.models import transakcija, oseba, osebaDto, racun, transakcijaDto, Uporabnik, vaja, vajaDto, treningDto, trening
 from typing import List
 
 # Preberemo port za bazo iz okoljskih spremenljivk
@@ -229,4 +229,56 @@ class Repo:
         self.cur.execute("""
             Update uporabniki set last_login = %s where username = %s
             """, (uporabnik.last_login,uporabnik.username))
+        self.conn.commit()
+
+    def izbrisi_vajo(self, ime: str):
+        self.cur.execute("""
+            DELETE FROM vaje WHERE ime = %s
+        """, (ime,))
+        self.conn.commit()
+
+    def dobi_vajo(self, ime: str):
+        self.cur.execute("""
+            SELECT * FROM vaje WHERE ime = %s
+        """, (ime,))
+        v = self.cur.fetchone()
+        if v:
+            return vaja.from_dict(v)
+        return None
+
+    def posodobi_vajo(self, staro_ime: str, novo_ime: str, opis: str, tip: str, link: str):
+        self.cur.execute("""
+            UPDATE vaje SET ime=%s, opis=%s, tip=%s, link=%s WHERE ime=%s
+        """, (novo_ime, opis, tip, link, staro_ime))
+        self.conn.commit()
+
+    def izbrisi_trening(self, trening_id: int):
+        self.cur.execute("""
+            DELETE FROM treningi WHERE id = %s
+        """, (trening_id,))
+        self.conn.commit()
+
+    def dobi_trening(self, trening_id: int):
+        self.cur.execute("""
+            SELECT * FROM treningi WHERE id = %s
+        """, (trening_id,))
+        t = self.cur.fetchone()
+        if t:
+            return trening.from_dict(t)
+        return None
+
+    def posodobi_trening(self, trening_id: int, novo_ime: str):
+        self.cur.execute("""
+            UPDATE treningi SET ime=%s WHERE id=%s
+        """, (novo_ime, trening_id))
+        self.conn.commit()
+
+    def izbrisi_vajo_iz_treninga(self, trening_id: int, vaja_ime: str):
+        self.cur.execute("""
+            SELECT id FROM vaje WHERE ime = %s
+        """, (vaja_ime,))
+        vaja_id = self.cur.fetchone()[0]
+        self.cur.execute("""
+            DELETE FROM trening_vaja WHERE trening_id = %s AND vaja_id = %s
+        """, (trening_id, vaja_id))
         self.conn.commit()

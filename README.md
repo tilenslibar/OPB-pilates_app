@@ -11,7 +11,7 @@ python3 -m venv venv
 ```
 potem - mora se pojaviti (venv) na levi strani
 ```
-source venv/bin/activate
+source venv/bin/activate (MacOS) oziroma .\venv\Scripts\Activate.ps1 (Windows)
 ```
 potem
 ```

@@ -1,4 +1,3 @@
-
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
 from datetime import datetime
@@ -113,3 +112,4 @@ class Uporabnik:
 class UporabnikDto:
     username: str = field(default="")
     role: str = field(default="")
+    last_login: str = field(default="")

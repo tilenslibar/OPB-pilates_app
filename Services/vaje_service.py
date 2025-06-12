@@ -46,3 +46,24 @@ class VajeService:
     
     def dodaj_trening(self, ime: str):
         return self.repo.dodaj_trening(ime)
+    
+    def izbrisi_vajo(self, ime: str):
+        return self.repo.izbrisi_vajo(ime)
+    
+    def dobi_vajo(self, ime: str):
+        return self.repo.dobi_vajo(ime)
+
+    def posodobi_vajo(self, staro_ime: str, novo_ime: str, opis: str, tip: str, link: str):
+        return self.repo.posodobi_vajo(staro_ime, novo_ime, opis, tip, link)
+    
+    def izbrisi_trening(self, trening_id: int):
+        return self.repo.izbrisi_trening(trening_id)
+
+    def dobi_trening(self, trening_id: int):
+        return self.repo.dobi_trening(trening_id)
+
+    def posodobi_trening(self, trening_id: int, novo_ime: str):
+        return self.repo.posodobi_trening(trening_id, novo_ime)
+    
+    def izbrisi_vajo_iz_treninga(self, trening_id: int, vaja_ime: str):
+        return self.repo.izbrisi_vajo_iz_treninga(trening_id, vaja_ime)

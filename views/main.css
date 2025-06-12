@@ -1,0 +1,309 @@
+body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #fdf6f0 0%, #fff 100%);
+    color: #5d4c3a;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-size: 1.08em;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
+}
+h1 {
+    font-size: 2.2em;
+    color: #bfae9e;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+    background: linear-gradient(90deg, #fff 60%, #fdf6f0 100%);
+    padding: 14px 0 14px 0;
+    border-radius: 12px;
+    box-shadow: 0 1px 8px #f9e7d7;
+    text-align: center;
+}
+h2 {
+    font-size: 1.5em;
+    color: #bfae9e;
+    font-weight: 600;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, #fff 60%, #fdf6f0 100%);
+    padding: 10px 0 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px #f9e7d7;
+    text-align: center;
+}
+h3 {
+    font-size: 0.88em;
+    color: #bfae9e;
+    font-weight: 500;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #fff 60%, #fdf6f0 100%);
+    padding: 2px 0 2px 0;
+    border-radius: 8px;
+    box-shadow: 0 1px 8px #f9e7d7;
+    text-align: left;
+}
+p, li, td, th, label, input, select, button, a {
+    font-family: inherit;
+    color: #5d4c3a;
+}
+p {
+    font-size: 1.08em;
+    margin-bottom: 12px;
+}
+li {
+    font-size: 1.04em;
+    margin-bottom: 6px;
+}
+label {
+    font-size: 1.04em;
+    color: #bfae9e;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+}
+td, th {
+    font-size: 1.04em;
+    vertical-align: middle;
+}
+a {
+    color: #b85c8a;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 500;
+}
+a:hover {
+    color: #e08cb6;
+    text-decoration: underline;
+}
+button, input[type="submit"] {
+    background: #f9e7d7;
+    color: #b85c8a;
+    border: 1.5px solid #e8b6d1;
+    border-radius: 8px;
+    padding: 7px 18px;
+    font-size: 0.98em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px #f7d6e6;
+    letter-spacing: 0.04em;
+}
+button:hover, input[type="submit"]:hover {
+    background: #fff6fa;
+    color: #a04c7a;
+    box-shadow: 0 2px 8px #f7d6e6;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 95%;
+    margin: 36px auto 28px auto;
+    background: #fff;
+    box-shadow: 0 2px 24px #f9e7d7;
+    border-radius: 18px;
+    overflow: hidden;
+    font-size: 1.04em;
+    letter-spacing: 0.01em;
+}
+th, td {
+    border: none;
+    padding: 18px 22px;
+    text-align: left;
+    font-size: 1.04em;
+    vertical-align: middle;
+}
+th {
+    background: #f9e7d7;
+    color: #b85c8a;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #f7d6e6;
+    text-align: center;
+}
+td {
+    background: #fff;
+    border-bottom: 1.5px solid #f9e7d7;
+    transition: background 0.2s;
+}
+tr:nth-child(even) td {
+    background: #fff6fa;
+}
+tr:hover td {
+    background: #fdf6f0;
+}
+form {
+    margin: 18px 0;
+}
+input[type="text"], input[type="password"], select, textarea {
+    border: 1.5px solid #e8b6d1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: #fff;
+    color: #4d3c2c;
+    margin-bottom: 12px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border 0.2s, background 0.2s;
+}
+input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #b85c8a;
+    background: #f9e7d7;
+}
+textarea {
+    min-height: 90px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.6;
+}
+hr {
+    border: none;
+    border-top: 1.5px solid #f9e7d7;
+    margin: 36px 0;
+}
+.container {
+    max-width: 950px;
+    margin: 48px auto;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 4px 32px #f9e7d7;
+    padding: 48px 56px 36px 56px;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    background: #f9e7d7;
+}
+::-webkit-scrollbar-thumb {
+    background: #e8b6d1;
+    border-radius: 4px;
+}
+.card {
+    background: #fff6fa;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px #f9e7d7;
+    padding: 22px 28px;
+    margin-bottom: 22px;
+}
+.meta-label {
+    font-size: 0.98em;
+    color: #bfae9e;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-right: 4px;
+    text-decoration: none;
+}
+.meta-link {
+    font-size: 0.98em;
+    color: #bfae9e;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-right: 4px;
+    text-decoration: underline;
+}
+.vaja-ime {
+    font-size: 1.08em;
+    color: #bfae9e;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+    background: none;
+    font-style: normal;
+}
+.trening-ime {
+    font-size: 1.08em;
+    color: #bfae9e;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+    background: none;
+    font-style: normal;
+    text-transform: uppercase;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    display: inline-block;
+}
+.vaja-ime-trening {
+    font-size: 1.04em;
+    color: #bfae9e;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+    background: none;
+    font-style: normal;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+    display: inline;
+}
+.vaja-ol {
+    list-style-type: decimal;
+    padding-left: 22px;
+    margin-bottom: 0;
+}
+.vaja-ol > li::marker {
+    color: #e8b6d1;
+    font-size: 1.18em;
+    font-weight: 700;
+}
+/* Gumb X za izbris (vaje v treningih in drugje) */
+.delete-btn {
+    background: none;
+    border: none;
+    color: #b85c8a;
+    font-weight: bold;
+    font-size: 0.98em;
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+    line-height: 1.1;
+}
+.delete-btn:hover {
+    color: #a04c7a;
+    background: #fff6fa;
+}
+/* Gumb svinčnik za urejanje */
+.edit-btn {
+    background: none;
+    border: none;
+    color: #bfae9e;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 0 6px;
+    transition: color 0.2s;
+}
+.edit-btn:hover {
+    color: #b85c8a;
+}
+a.meta-link {
+    color: #bfae9e;
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+}
+a.meta-link:hover {
+    color: #b85c8a;
+}
+@media (max-width: 700px) {
+    .container {
+        padding: 16px 4vw;
+    }
+    table {
+        width: 100%;
+    }
+    th, td {
+        padding: 10px 6px;
+    }
+}

@@ -1,5 +1,5 @@
 from functools import wraps
-from bottle import run, template, request, redirect, response, get, post
+from bottle import run, template, request, redirect, response, get, post, static_file
 from Services.vaje_service import VajeService
 from Services.auth_service import AuthService
 
@@ -132,6 +132,65 @@ def dodaj_trening():
 
     service.repo.dodaj_trening(ime)
     redirect('/treningi')
+
+@post('/izbrisi_vajo')
+@cookie_required
+def izbrisi_vajo():
+    ime = request.forms.get('ime')
+    service.izbrisi_vajo(ime)
+    redirect('/vaje')
+
+@get('/uredi_vajo')
+@cookie_required
+def uredi_vajo_get():
+    ime = request.query.get('ime')
+    vaja = service.dobi_vajo(ime)
+    return template('uredi_vajo', vaja=vaja)
+
+@post('/uredi_vajo')
+@cookie_required
+def uredi_vajo_post():
+    staro_ime = request.forms.get('staro_ime')
+    novo_ime = request.forms.get('ime')
+    opis = request.forms.get('opis')
+    tip = request.forms.get('tip')
+    link = request.forms.get('link')
+    service.posodobi_vajo(staro_ime, novo_ime, opis, tip, link)
+    redirect('/vaje')
+
+@post('/izbrisi_trening')
+@cookie_required
+def izbrisi_trening():
+    trening_id = request.forms.get('trening_id')
+    service.izbrisi_trening(int(trening_id))
+    redirect('/treningi')
+
+@get('/uredi_trening')
+@cookie_required
+def uredi_trening_get():
+    trening_id = request.query.get('trening_id')
+    trening = service.dobi_trening(int(trening_id))
+    return template('uredi_trening', trening=trening)
+
+@post('/uredi_trening')
+@cookie_required
+def uredi_trening_post():
+    trening_id = request.forms.get('trening_id')
+    novo_ime = request.forms.get('ime')
+    service.posodobi_trening(int(trening_id), novo_ime)
+    redirect('/treningi')
+
+@post('/izbrisi_vajo_iz_treninga')
+@cookie_required
+def izbrisi_vajo_iz_treninga():
+    trening_id = request.forms.get('trening_id')
+    vaja_ime = request.forms.get('vaja_ime')
+    service.izbrisi_vajo_iz_treninga(int(trening_id), vaja_ime)
+    redirect('/treningi')
+
+@get('/views/<filename:path>')
+def serve_static(filename):
+    return static_file(filename, root='./views')
 
 
 if __name__ == '__main__':
