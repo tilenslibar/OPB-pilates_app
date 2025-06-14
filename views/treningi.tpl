@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/views/main.css">
 </head>
 <body>
-<div class="container">
+<div class="container" style="width:90vw;max-width:1500px;margin:0 auto;">
     <h2>Ustvari trening</h2>
     <form form action="/dodaj_trening" method="post">
         <label>Ime: <input type="text" name="ime" required></label><br>
@@ -38,8 +38,8 @@
                                 <button type="submit" class="delete-btn">X</button>
                             </form>
                             <br>
-                            <strong class="meta-label">opis:</strong> <span class="meta-label">{{vaja.opis}}</span><br>
-                            <strong class="meta-label">tip:</strong> <span class="meta-label">{{vaja.tip}}</span><br>
+                            <strong class="meta-label" style="text-transform:uppercase;">opis:</strong> <span class="meta-label">{{vaja.opis}}</span><br>
+                            <strong class="meta-label" style="text-transform:uppercase;">tip:</strong> <span class="meta-label">{{vaja.tip}}</span><br>
                             <!--
                                 <strong class="meta-label">link:</strong> <span class="meta-label"><a href="{{vaja.link}}" target="_blank" style="color: #bfae9e; font-style: italic; text-decoration: underline;">{{vaja.link}}</a></span>
                             -->

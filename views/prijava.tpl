@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/views/main.css">
 </head>
 <body>
-<div class="container">
+<div class="container" style="width:90vw;max-width:1500px;margin:0 auto;">
     <h1>Prijava</h1>
     <p class="meta-label" style="font-size:1.12em;text-align:center;margin-bottom:18px;">Če še niste prijavljeni, se prijavite z uporabniškim imenom in geslom.</p>
     <form action="/prijava" method="post">

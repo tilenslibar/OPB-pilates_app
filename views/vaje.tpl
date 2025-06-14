@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container" style="width:90vw;max-width:1500px;margin:0 auto;">
     <h2>Dodaj novo vajo</h2>
     <form action="/dodaj" method="post" accept-charset="UTF-8">
         <label>Ime:

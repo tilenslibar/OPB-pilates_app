@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/views/main.css">
 </head>
 <body>
-<div class="container">
+<div class="container" style="width:90vw;max-width:1500px;margin:0 auto;">
     <h1>Uredi vajo</h1>
     <form action="/uredi_vajo" method="post">
         <input type="hidden" name="staro_ime" value="{{vaja.ime}}">
