@@ -33,7 +33,7 @@ def domov():
 @cookie_required
 def stran_vaje():
     vaje = service.dobi_vaje()
-    return template('vaje', naslov="Baza vaj", vaje=vaje)
+    return template('vaje', naslov="Baza vaj", vaje=vaje, sporocilo="")
 
 @post('/dodaj')
 @cookie_required
@@ -50,6 +50,8 @@ def dodaj_vajo():
     username = request.get_cookie("uporabnik")
 
     user = auth.repo.dobi_uporabnika(username)
+    if user.role != 'trener':
+        return template('vaje', naslov="Baza vaj", vaje=service.dobi_vaje(), sporocilo="Samo trenerji lahko dodajajo vaje.")
     # print("Uporabnik:", user)
 
     service.dodaj_vajo(ime, opis, tip, link, user.id)
@@ -58,7 +60,7 @@ def dodaj_vajo():
 @post('/prijava')
 def prijava():
     """
-    Prijavi uporabnika v aplikacijo. Če je prijava uspešna, ustvari piškotke o uporabniku in njegovi roli.
+    Prijavi uporabnika v aplikacijo. Če je prijava uspešna, ustvari piškotke o uporabniku in njegovi vlogi.
     Drugače sporoči, da je prijava neuspešna.
     """
     username = request.forms.get('username')
@@ -97,11 +99,12 @@ def ustvari_racun():
 def ustvari_racun_post():
     username = request.forms.get('username')
     password = request.forms.get('password')
+    rola = request.forms.get('rola')
 
     if auth.obstaja_uporabnik(username):
         return template('ustvari_racun', naslov="Ustvari račun", sporocilo="Uporabnik s tem imenom že obstaja.")
     
-    auth.dodaj_uporabnika(username, "uporabnik", password)
+    auth.dodaj_uporabnika(username, rola, password)
     return template('prijava', naslov="Prijava", sporocilo="Uspešno ste ustvarili račun. Sedaj se lahko prijavite.")
 
 @get('/uporabniki')
@@ -155,6 +158,13 @@ def izbrisi_vajo():
     data = urllib.parse.parse_qs(raw)
 
     ime = data['ime'][0]
+
+    username = request.get_cookie("uporabnik")
+    user = auth.repo.dobi_uporabnika(username)
+
+    if user.role != 'trener':
+        return template('vaje', naslov="Baza vaj", vaje=service.dobi_vaje(), sporocilo="Samo trenerji lahko brišejo vaje.")
+
     service.izbrisi_vajo(ime)
     redirect('/vaje')
 
@@ -167,6 +177,7 @@ def uredi_vajo_get():
 
     ime = data['ime'][0]
     vaja = service.dobi_vajo(ime)
+
     return template('uredi_vajo', vaja=vaja)
 
 @post('/uredi_vajo')
@@ -176,11 +187,18 @@ def uredi_vajo_post():
     raw = request.body.read().decode("utf-8")
     data = urllib.parse.parse_qs(raw)
 
+    username = request.get_cookie("uporabnik")
+    user = auth.repo.dobi_uporabnika(username)
+
+    if user.role != 'trener':
+        return template('vaje', naslov="Baza vaj", vaje=service.dobi_vaje(), sporocilo="Samo trenerji lahko urejajo vaje.")
+
     staro_ime = data['staro_ime'][0]
     novo_ime = data['ime'][0]
     opis = data['opis'][0]
     tip = data['tip'][0]
     link = data['link'][0]
+
     service.posodobi_vajo(staro_ime, novo_ime, opis, tip, link)
     redirect('/vaje')
 

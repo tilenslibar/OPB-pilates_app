@@ -12,6 +12,12 @@
     <form form action="/ustvari_racun" method="post">
         <label>Uporabnisko ime: <input type="text" name="username" required></label><br>
         <label>Geslo: <input type="password" name="password" required></label><br>
+        <label>Vloga: 
+            <select name="rola" required>
+                <option value="trener">Trener</option>
+                <option value="uporabnik">Uporabnik</option>
+            </select>
+        </label><br>
     <button type="submit">Prijava</button>
     </form>
 </div>

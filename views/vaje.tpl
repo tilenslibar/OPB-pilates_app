@@ -22,6 +22,7 @@
 <body>
 <div class="container" style="width:90vw;max-width:1500px;margin:0 auto;">
     <h2>Dodaj novo vajo</h2>
+    <p>{{sporocilo}}</p>
     <form action="/dodaj" method="post" accept-charset="UTF-8">
         <label>Ime:
             <input type="text" name="ime" required placeholder="Npr. Plank, Most, ..." maxlength="60">

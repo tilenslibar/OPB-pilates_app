@@ -33,7 +33,7 @@
     <table>
         <tr>
             <th>Username</th>
-            <th>Rola</th>
+            <th>Vloga</th>
             <th>Zadnja prijava</th>
         </tr>
         % for u in uporabniki:
